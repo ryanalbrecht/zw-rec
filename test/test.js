@@ -1,7 +1,7 @@
 const test = require('ava');
 const ping = require('ping');
 let ZWRec = require('../index');
-let zwRec = new ZWRec('172.17.1.127');
+let zwRec = new ZWRec({host:'172.17.1.127'});
 
 
 test.serial('zw-rec device is responding to ping', async t => {

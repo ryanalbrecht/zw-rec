@@ -15,18 +15,14 @@ class ZWRec {
    * @param {string} [adminPassword='000000'] the password for the admin lgoin
    * @memberof ZWRec
    */
-  constructor(
-    host = '192.168.1.200',
-    clientUsername = 'login',
-    clientPassword = '12345678',
-    adminUsername = 'admin',
-    adminPassword = '00000000'
-  ) {
-    this._host = host;
-    this._clientUsername = clientUsername;
-    this._clientPassword = clientPassword;
-    this._adminUsername = adminUsername;
-    this._adminPassword = adminPassword;
+  constructor(config) {
+    config = { ...config };
+
+    this._host = config.host || '192.168.1.200';
+    this._clientUsername = config.clientUsername || 'login';
+    this._clientPassword = config.clientPassword || '12345678';
+    this._adminUsername = config.adminUsername || 'admin';
+    this._adminPassword = config.adminPassword || '00000000';
 
     this._clientAuth = {
       username: this._clientUsername,
