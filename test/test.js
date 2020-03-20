@@ -48,7 +48,7 @@ test.serial('function setThermocouple returns without error', async t => {
 });
 
 
-test.serial('function rebootReciever returns without error', async t => {
-  let thermocouple = await zwRec.rebootReciever();
-  t.truthy( thermocouple );
-});
+// test.serial('function rebootReciever returns without error', async t => {
+//   let thermocouple = await zwRec.rebootReciever();
+//   t.truthy( thermocouple );
+// });

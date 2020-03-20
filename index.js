@@ -69,8 +69,8 @@ class ZWRec {
    * @memberof ZWRec
    */
   async getAllThermocouples(){
-    let t2Thermocouples = {};
-    let t3Thermocouples = {};
+    let t2Thermocouples = [];
+    let t3Thermocouples = [];
     let offset = 0;
     let data;
     let counter = 0; // just a check to prevent an infinite loop
@@ -82,7 +82,7 @@ class ZWRec {
         //remove silly temperature symbol from sensor readings;
         tc.srs = this._fixTemperatureSymbols(tc.srs);
         tc.typeStr = thermocoupleTypes[tc.type];
-        t2Thermocouples[tc.id] = tc
+        t2Thermocouples.push(tc);
       });
       offset = data.nxt;
       counter++;
@@ -94,14 +94,14 @@ class ZWRec {
     //get data from target 3
     do {
       data = await await this._getThermocoupleData({target: 3, offset: offset});
-      data.states.forEach( tc => { t3Thermocouples[tc.id] = tc });
+      data.states.forEach( tc => t3Thermocouples.push(tc) );
       offset = data.nxt;
       counter++;
     } while ( counter < 33 && data.nxt < 128 );
 
     //do a check and see if there is a difference between target2 and target3 ids
-    let t2Ids = Object.keys(t2Thermocouples);
-    let t3Ids = Object.keys(t3Thermocouples);
+    let t2Ids = t2Thermocouples.map(tc => tc.id);
+    let t3Ids = t3Thermocouples.map(tc => tc.id);
     let difference = t2Ids
       .filter(x => !t3Ids.includes(x))
       .concat(t3Ids.filter(x => !t2Ids.includes(x)));
@@ -110,8 +110,14 @@ class ZWRec {
       throw("The return thermocouple IDs from target2 results does not match ID from target3 results");
     }
 
+    //merge target2 and target3 data
+    let mergedData = t2Thermocouples.map(tcA => {
+      let tcB = t3Thermocouples.find(x => x.id == tcA.id);
+      return merge(tcA, tcB);
+    });
+
     //marge data and return
-    return merge(t2Thermocouples,t3Thermocouples);
+    return mergedData;
   }
 
 
