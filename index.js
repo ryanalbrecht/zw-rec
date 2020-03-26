@@ -1,4 +1,6 @@
-const thermocoupleTypes = require('./thermocouple-types');
+const getThermocoupleType = require('./thermocouple-types');
+const getBatteryLevel = require('./battery-level');
+const getSignalLevel = require('./signal-level');
 const axios = require('axios');
 const merge = require('deepmerge');
 const qs = require('querystring');
@@ -81,7 +83,10 @@ class ZWRec {
       data.readings.forEach( tc => {
         //remove silly temperature symbol from sensor readings;
         tc.srs = this._fixTemperatureSymbols(tc.srs);
-        tc.typeStr = thermocoupleTypes[tc.type];
+        tc.typeStr = getThermocoupleType(tc.type).type;
+        tc.typeFam = getThermocoupleType(tc.type).family;
+        tc.batteryLevel = getBatteryLevel(tc.typeFam, tc.battery);
+        tc.signalLevel = getSignalLevel(tc.rssi);
         t2Thermocouples.push(tc);
       });
       offset = data.nxt;
@@ -131,6 +136,10 @@ class ZWRec {
     let target2 = await this._getThermocoupleData({target: 2, deviceID: id});
     let target3 = await this._getThermocoupleData({target: 3, deviceID: id});
     let tc = merge(target2.readings[0], target3.states[0]);
+    tc.typeStr = getThermocoupleType(tc.type).type;
+    tc.typeFam = getThermocoupleType(tc.type).family;
+    tc.batteryLevel = getBatteryLevel(tc.typeFam, tc.battery);
+    tc.signalLevel = getSignalLevel(tc.rssi);
     tc.srs = this._fixTemperatureSymbols(tc.srs);
     return tc
   }
