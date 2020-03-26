@@ -132,9 +132,12 @@ class ZWRec {
    * @memberof ZWRec
    */
   async getThermocouple(id){
+    //EDOffset0=&EDOffset1=&EDOffset2=&EDOffset3=&IdentifyOn=
+    let target1 = await this._getThermocoupleData({target: 1, deviceID: id, EDOffset0: '', EDOffset1: '', EDOffset2: '', EDOffset3: '', IdentifyOn: ''});
     let target2 = await this._getThermocoupleData({target: 2, deviceID: id});
     let target3 = await this._getThermocoupleData({target: 3, deviceID: id});
     let tc = merge(target2.readings[0], target3.states[0]);
+    tc = merge(tc, target1);
     tc.typeStr = getThermocoupleType(tc.type).type;
     tc.typeFam = getThermocoupleType(tc.type).family;
     tc.batteryLevel = getBatteryLevel(tc.typeFam, tc.battery);
