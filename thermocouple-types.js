@@ -1,16 +1,38 @@
 const transmitterTypes = {
-  221: 'UWTC B Type TC',
-  222: 'UWTC C Type TC',
-  224: 'UWTC E Type TC',
-  227: 'UWRH',
-  228: 'UWIR',
-  229: 'UWTC J Type TC',
-  230: 'UWTC K Type TC',
-  233: 'UWTC N Type TC',
-  235: 'UWRTD',
-  237: 'UWTC R Type TC',
-  238: 'UWTC S Type TC',
-  2: 'UWTC T Type TC'
+  0: "Unknown";
+  1: "T";
+  2: "T_BTP";
+  3: "T_THP";
+  4: "T_TP";
+  5: "TH";
+  6: "TH_BTP";
+  7: "TH_THP";
+  8: "TH_TP";
+  9: "BT";
+  10: "BT_BTP";
+  11: "BT_THP";
+  12: "BT_TP";
+  13: "BTH";
+  14: "BTP";
+  15: "THP";
+  16: "TP";
+  17: "VI";
+  20: "ZED_TC";
+  220: "UWTC_PH";
+  221: "UWTC_B";
+  222: "UWTC_C";
+  224: "UWTC_E";
+  227: "UWTC_RH";
+  228: "UWTC_IR";
+  229: "UWTC_J";
+  230: "UWTC_K";
+  233: "UWTC_N";
+  235: "UWTC_RTD";
+  237: "UWTC_R";
+  238: "UWTC_S";
+  239: "UWTC_T";
+  250: "ZRTR";
+  255: "ZW_ED";
 };
 
 module.exports = transmitterTypes;
