@@ -80,15 +80,7 @@ class ZWRec {
     //get data from target 2
     do {
       data = await this._getThermocoupleData({target: 2, offset: offset});
-      data.readings.forEach( tc => {
-        //remove silly temperature symbol from sensor readings;
-        tc.srs = this._fixTemperatureSymbols(tc.srs);
-        tc.typeStr = getThermocoupleType(tc.type).type;
-        tc.typeFam = getThermocoupleType(tc.type).family;
-        tc.batteryLevel = getBatteryLevel(tc.typeFam, tc.battery);
-        tc.signalLevel = getSignalLevel(tc.rssi);
-        t2Thermocouples.push(tc);
-      });
+      data.readings.forEach( tc => t2Thermocouples.push(tc) );
       offset = data.nxt;
       counter++;
     } while ( counter < 33 && data.nxt < 128 );
@@ -118,7 +110,17 @@ class ZWRec {
     //merge target2 and target3 data
     let mergedData = t2Thermocouples.map(tcA => {
       let tcB = t3Thermocouples.find(x => x.id == tcA.id);
-      return merge(tcA, tcB);
+      let mergedTc = merge(tcA, tcB);
+      //remove silly temperature symbol from sensor readings;
+      mergedTc.srs = this._fixTemperatureSymbols(mergedTc.srs);
+      mergedTc.typeStr = getThermocoupleType(mergedTc.type).type;
+      mergedTc.typeFam = getThermocoupleType(mergedTc.type).family;
+      mergedTc.batteryLevel = getBatteryLevel(mergedTc.typeFam, mergedTc.battery);
+      mergedTc.signalLevel = getSignalLevel(mergedTc.rssi);
+
+      console.log(mergedTc)
+
+      return mergedTc;
     });
 
     //marge data and return

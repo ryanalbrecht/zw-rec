@@ -14,7 +14,7 @@ const hysteresis = {
 };
 
 let getbatteryLevel = function(typeFamily, bVolts){
-  bVolts /= 1000 //convert from millivolts to volts
+  bVolts = bVolts/1000 //convert from millivolts to volts
   let voltages = hysteresis[typeFamily].lower;
   let level = 0;
   for(let i=4; i>0; i--){
