@@ -9,7 +9,7 @@ getSignalLevel = function(rssi){
       break;
     }
   }
-  return level;
+  return level+1;
 }
 
 module.exports = getSignalLevel;

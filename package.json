@@ -1,7 +1,7 @@
 {
   "name": "zw-rec",
   "description": "A library to communicate with an omega zw-rec device",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "author": "Ryan Albrecht <ryan@albrecht.co.za> ()",
   "bugs": {
     "url": "https://github.com/ryanalbrecht/zw-rec/issues",
