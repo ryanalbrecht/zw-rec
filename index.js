@@ -117,9 +117,6 @@ class ZWRec {
       mergedTc.typeFam = getThermocoupleType(mergedTc.type).family;
       mergedTc.batteryLevel = getBatteryLevel(mergedTc.typeFam, mergedTc.battery);
       mergedTc.signalLevel = getSignalLevel(mergedTc.rssi);
-
-      console.log(mergedTc)
-
       return mergedTc;
     });
 
