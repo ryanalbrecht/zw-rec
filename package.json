@@ -11,7 +11,7 @@
     "Ryan Albrecht <ryan@albrecht.co.za> ()"
   ],
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "deepmerge": "^4.2.2",
     "ping": "^0.2.2",
     "querystring": "^0.2.0"
